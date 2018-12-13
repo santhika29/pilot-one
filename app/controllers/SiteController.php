@@ -45,6 +45,7 @@ class SiteController extends Controller
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
+                'view' => '@yiister/gentelella/views/error',
             ],
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
