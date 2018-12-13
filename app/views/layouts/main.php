@@ -135,9 +135,10 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
                 <!-- /sidebar menu -->
 
                 <?php echo $this->render('_sidebar'); ?>
+                <?php echo $this->render('_footer_buttons'); ?>
 
                 <!-- /menu footer buttons -->
-                <div class="sidebar-footer hidden-small">
+                <!-- <div class="sidebar-footer hidden-small">
                     <a data-toggle="tooltip" data-placement="top" title="Settings">
                         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                     </a>
@@ -150,13 +151,13 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
                     <a data-toggle="tooltip" data-placement="top" title="Logout">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </a>
-                </div>
+                </div> -->
                 <!-- /menu footer buttons -->
             </div>
         </div>
 
         <!-- top navigation -->
-        <div class="top_nav">
+        <!-- <div class="top_nav">
 
             <div class="nav_menu">
                 <nav class="" role="navigation">
@@ -264,8 +265,9 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
                 </nav>
             </div>
 
-        </div>
+        </div> -->
         <!-- /top navigation -->
+        <?php echo $this->render('_topbar'); ?>
 
         <!-- page content -->
         <div class="right_col" role="main">
