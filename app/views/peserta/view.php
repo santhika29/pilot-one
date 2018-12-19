@@ -7,7 +7,7 @@ use kartik\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Peserta */
 
-$this->title = $model->peserta_id;
+$this->title = $model->NIK;
 $this->params['breadcrumbs'][] = ['label' => 'Peserta', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -34,9 +34,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
 <?php 
     $gridColumn = [
-        'peserta_id',
+        //'peserta_id',
         [
-            'attribute' => 'nIK.tanggungan_id',
+            'attribute' => 'nIK.NIK_KK',
             'label' => 'NIK',
         ],
         'NAMA',
