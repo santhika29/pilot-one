@@ -49,8 +49,12 @@ class PesertaController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
+        $providerTanggungan = new \yii\data\ArrayDataProvider([
+            'allModels' => $model->tanggungans,
+        ]);
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'providerTanggungan' => $providerTanggungan,
         ]);
     }
 
@@ -116,6 +120,26 @@ class PesertaController extends Controller
     {
         if (($model = Peserta::findOne($id)) !== null) {
             return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+    
+    /**
+    * Action to load a tabular form grid
+    * for Tanggungan
+    * @author Yohanes Candrajaya <moo.tensai@gmail.com>
+    * @author Jiwantoro Ndaru <jiwanndaru@gmail.com>
+    *
+    * @return mixed
+    */
+    public function actionAddTanggungan()
+    {
+        if (Yii::$app->request->isAjax) {
+            $row = Yii::$app->request->post('Tanggungan');
+            if((Yii::$app->request->post('isNewRecord') && Yii::$app->request->post('_action') == 'load' && empty($row)) || Yii::$app->request->post('_action') == 'add')
+                $row[] = [];
+            return $this->renderAjax('_formTanggungan', ['row' => $row]);
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }

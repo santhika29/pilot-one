@@ -22,8 +22,8 @@ $this->registerJs($search);
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <!-- <?= Html::a('Create Tanggungan', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Advance Search', '#', ['class' => 'btn btn-info search-button']) ?> -->
+        <?= Html::a('Create Tanggungan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Advance Search', '#', ['class' => 'btn btn-info search-button']) ?>
     </p>
     <div class="search-form" style="display:none">
         <?=  $this->render('_search', ['model' => $searchModel]); ?>
@@ -31,10 +31,37 @@ $this->registerJs($search);
     <?php 
     $gridColumn = [
         ['class' => 'yii\grid\SerialColumn'],
-        #'tanggungan_id',
-        #'KODE',
+        [
+            'class' => 'kartik\grid\ExpandRowColumn',
+            'width' => '50px',
+            'value' => function ($model, $key, $index, $column) {
+                return GridView::ROW_COLLAPSED;
+            },
+            'detail' => function ($model, $key, $index, $column) {
+                return Yii::$app->controller->renderPartial('_expand', ['model' => $model]);
+            },
+            'headerOptions' => ['class' => 'kartik-sheet-style'],
+            'expandOneOnly' => true
+        ],
+        'tanggungan_id',
+        'KODE',
         'NIKKES',
-        'NIK_KK',
+        [
+                'attribute' => 'NIK_KK',
+                'label' => 'NIK KK',
+                'value' => function($model){
+                    if ($model->nIKKK)
+                    {return $model->nIKKK->peserta_id;}
+                    else
+                    {return NULL;}
+                },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filter' => \yii\helpers\ArrayHelper::map(\app\models\Peserta::find()->asArray()->all(), 'NIK', 'peserta_id'),
+                'filterWidgetOptions' => [
+                    'pluginOptions' => ['allowClear' => true],
+                ],
+                'filterInputOptions' => ['placeholder' => 'Peserta', 'id' => 'grid-tanggungan-search-NIK_KK']
+            ],
         'NAMA',
         'TGL_LAHIR',
         'NIK_PASANGAN',
@@ -43,9 +70,9 @@ $this->registerJs($search);
         'TPK',
         'AREA',
         'NO_BPJS',
-        /*[
+        [
             'class' => 'yii\grid\ActionColumn',
-        ],*/
+        ],
     ]; 
     ?>
     <?= GridView::widget([

@@ -20,7 +20,7 @@ use Yii;
  * @property integer $AREA
  * @property string $NO_BPJS
  *
- * @property \app\models\Peserta[] $pesertas
+ * @property \app\models\Peserta $nIKKK
  */
 class Tanggungan extends \yii\db\ActiveRecord
 {
@@ -34,7 +34,7 @@ class Tanggungan extends \yii\db\ActiveRecord
     public function relationNames()
     {
         return [
-            'pesertas'
+            'nIKKK'
         ];
     }
 
@@ -85,9 +85,9 @@ class Tanggungan extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPesertas()
+    public function getNIKKK()
     {
-        return $this->hasMany(\app\models\Peserta::className(), ['NIK' => 'NIK_KK']);
+        return $this->hasOne(\app\models\Peserta::className(), ['NIK' => 'NIK_KK']);
     }
     
 

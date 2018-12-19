@@ -80,4 +80,37 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model->nIK,
         'attributes' => $gridColumnTanggungan    ]);
     ?>
+    
+    <div class="row">
+<?php
+if($providerTanggungan->totalCount){
+    $gridColumnTanggungan = [
+        ['class' => 'yii\grid\SerialColumn'],
+            'tanggungan_id',
+            'KODE',
+            'NIKKES',
+                        'NAMA',
+            'TGL_LAHIR',
+            'NIK_PASANGAN',
+            'TANGGAL_AKHIR_TANGGUNGAN',
+            'HUBUNGANKEL',
+            'TPK',
+            'AREA',
+            'NO_BPJS',
+    ];
+    echo Gridview::widget([
+        'dataProvider' => $providerTanggungan,
+        'pjax' => true,
+        'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-tanggungan']],
+        'panel' => [
+            'type' => GridView::TYPE_PRIMARY,
+            'heading' => '<span class="glyphicon glyphicon-book"></span> ' . Html::encode('Tanggungan'),
+        ],
+        'export' => false,
+        'columns' => $gridColumnTanggungan
+    ]);
+}
+?>
+
+    </div>
 </div>

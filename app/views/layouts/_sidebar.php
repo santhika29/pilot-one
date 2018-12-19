@@ -9,7 +9,7 @@
                 "items" => [
                     ["label" => "Home", "url" => "/", "icon" => "home"],
                     ["label" => "Cek Kacamata", "url" => "/kacamata", "icon" => "files-o"],
-                    ["label" => "Cek Peserta", "url" => "/tanggungan", "icon" => "user-circle"],
+                    ["label" => "Cek Peserta", "url" => "/peserta", "icon" => "user-circle"],
                     ["label" => "Error page", "url" => ["site/error-page"], "icon" => "close"],
                     [
                         "label" => "Widgets",

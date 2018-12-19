@@ -23,6 +23,7 @@ use Yii;
  * @property string $TGL_MENINGGAL
  *
  * @property \app\models\Tanggungan $nIK
+ * @property \app\models\Tanggungan[] $tanggungans
  */
 class Peserta extends \yii\db\ActiveRecord
 {
@@ -36,7 +37,8 @@ class Peserta extends \yii\db\ActiveRecord
     public function relationNames()
     {
         return [
-            'nIK'
+            'nIK',
+            'tanggungans'
         ];
     }
 
@@ -96,6 +98,14 @@ class Peserta extends \yii\db\ActiveRecord
     public function getNIK()
     {
         return $this->hasOne(\app\models\Tanggungan::className(), ['NIK_KK' => 'NIK']);
+    }
+        
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTanggungans()
+    {
+        return $this->hasMany(\app\models\Tanggungan::className(), ['NIK_KK' => 'NIK']);
     }
     
 

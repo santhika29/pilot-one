@@ -7,6 +7,14 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\Peserta */
 /* @var $form yii\widgets\ActiveForm */
 
+\mootensai\components\JsBlock::widget(['viewFile' => '_script', 'pos'=> \yii\web\View::POS_END, 
+    'viewParams' => [
+        'class' => 'Tanggungan', 
+        'relID' => 'tanggungan', 
+        'value' => \yii\helpers\Json::encode($model->tanggungans),
+        'isNewRecord' => ($model->isNewRecord) ? 1 : 0
+    ]
+]);
 ?>
 
 <div class="peserta-form">
@@ -79,6 +87,26 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
+    <?php
+    $forms = [
+        [
+            'label' => '<i class="glyphicon glyphicon-book"></i> ' . Html::encode('Tanggungan'),
+            'content' => $this->render('_formTanggungan', [
+                'row' => \yii\helpers\ArrayHelper::toArray($model->tanggungans),
+            ]),
+        ],
+    ];
+    echo kartik\tabs\TabsX::widget([
+        'items' => $forms,
+        'position' => kartik\tabs\TabsX::POS_ABOVE,
+        'encodeLabels' => false,
+        'pluginOptions' => [
+            'bordered' => true,
+            'sideways' => true,
+            'enableCache' => false,
+        ],
+    ]);
+    ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

@@ -31,12 +31,24 @@ $this->registerJs($search);
     <?php 
     $gridColumn = [
         ['class' => 'yii\grid\SerialColumn'],
-        'peserta_id',
+        [
+            'class' => 'kartik\grid\ExpandRowColumn',
+            'width' => '50px',
+            'value' => function ($model, $key, $index, $column) {
+                return GridView::ROW_COLLAPSED;
+            },
+            'detail' => function ($model, $key, $index, $column) {
+                return Yii::$app->controller->renderPartial('_expand', ['model' => $model]);
+            },
+            'headerOptions' => ['class' => 'kartik-sheet-style'],
+            'expandOneOnly' => true
+        ],
+        //'peserta_id',
         [
                 'attribute' => 'NIK',
                 'label' => 'NIK',
                 'value' => function($model){                   
-                    return $model->nIK->tanggungan_id;                   
+                    return $model->nIK->NIK_KK;                   
                 },
                 'filterType' => GridView::FILTER_SELECT2,
                 'filter' => \yii\helpers\ArrayHelper::map(\app\models\Tanggungan::find()->asArray()->all(), 'NIK_KK', 'tanggungan_id'),
@@ -47,16 +59,16 @@ $this->registerJs($search);
             ],
         'NAMA',
         'TGL_LAHIR',
-        'ALAMAT_RUMAH',
-        'KOTA_RUMAH',
+        //'ALAMAT_RUMAH',
+        //'KOTA_RUMAH',
         'TGL_PENSIUN',
         'BAND_POSISI',
         'KLAS_POSISI',
-        'vDIVISI',
-        'LOKASI_KERJA',
+        //'vDIVISI',
+        //'LOKASI_KERJA',
         'PERSONALSUBAREA',
         'YAKES_AREA',
-        'TGL_MENINGGAL',
+        //'TGL_MENINGGAL',
         [
             'class' => 'yii\grid\ActionColumn',
         ],

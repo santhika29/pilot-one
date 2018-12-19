@@ -7,14 +7,6 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\Tanggungan */
 /* @var $form yii\widgets\ActiveForm */
 
-\mootensai\components\JsBlock::widget(['viewFile' => '_script', 'pos'=> \yii\web\View::POS_END, 
-    'viewParams' => [
-        'class' => 'Peserta', 
-        'relID' => 'peserta', 
-        'value' => \yii\helpers\Json::encode($model->pesertas),
-        'isNewRecord' => ($model->isNewRecord) ? 1 : 0
-    ]
-]);
 ?>
 
 <div class="tanggungan-form">
@@ -29,7 +21,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'NIKKES')->textInput(['maxlength' => true, 'placeholder' => 'NIKKES']) ?>
 
-    <?= $form->field($model, 'NIK_KK')->textInput(['maxlength' => true, 'placeholder' => 'NIK KK']) ?>
+    <?= $form->field($model, 'NIK_KK')->widget(\kartik\widgets\Select2::classname(), [
+        'data' => \yii\helpers\ArrayHelper::map(\app\models\Peserta::find()->orderBy('NIK')->asArray()->all(), 'NIK', 'peserta_id'),
+        'options' => ['placeholder' => 'Choose Peserta'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]); ?>
 
     <?= $form->field($model, 'NAMA')->textInput(['maxlength' => true, 'placeholder' => 'NAMA']) ?>
 
@@ -67,26 +65,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'NO_BPJS')->textInput(['maxlength' => true, 'placeholder' => 'NO BPJS']) ?>
 
-    <?php
-    $forms = [
-        [
-            'label' => '<i class="glyphicon glyphicon-book"></i> ' . Html::encode('Peserta'),
-            'content' => $this->render('_formPeserta', [
-                'row' => \yii\helpers\ArrayHelper::toArray($model->pesertas),
-            ]),
-        ],
-    ];
-    echo kartik\tabs\TabsX::widget([
-        'items' => $forms,
-        'position' => kartik\tabs\TabsX::POS_ABOVE,
-        'encodeLabels' => false,
-        'pluginOptions' => [
-            'bordered' => true,
-            'sideways' => true,
-            'enableCache' => false,
-        ],
-    ]);
-    ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

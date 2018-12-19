@@ -37,7 +37,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'tanggungan_id',
         'KODE',
         'NIKKES',
-        'NIK_KK',
+        [
+            'attribute' => 'nIKKK.peserta_id',
+            'label' => 'NIK KK',
+        ],
         'NAMA',
         'TGL_LAHIR',
         'NIK_PASANGAN',
@@ -53,39 +56,28 @@ $this->params['breadcrumbs'][] = $this->title;
     ]);
 ?>
     </div>
-    
     <div class="row">
-<?php
-if($providerPeserta->totalCount){
-    $gridColumnPeserta = [
-        ['class' => 'yii\grid\SerialColumn'],
-            'peserta_id',
-                        'NAMA',
-            'TGL_LAHIR',
-            'ALAMAT_RUMAH',
-            'KOTA_RUMAH',
-            'TGL_PENSIUN',
-            'BAND_POSISI',
-            'KLAS_POSISI',
-            'vDIVISI',
-            'LOKASI_KERJA',
-            'PERSONALSUBAREA',
-            'YAKES_AREA',
-            'TGL_MENINGGAL',
-    ];
-    echo Gridview::widget([
-        'dataProvider' => $providerPeserta,
-        'pjax' => true,
-        'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-peserta']],
-        'panel' => [
-            'type' => GridView::TYPE_PRIMARY,
-            'heading' => '<span class="glyphicon glyphicon-book"></span> ' . Html::encode('Peserta'),
-        ],
-        'export' => false,
-        'columns' => $gridColumnPeserta
-    ]);
-}
-?>
-
+        <h4>Peserta<?= ' '. Html::encode($this->title) ?></h4>
     </div>
+    <?php 
+    $gridColumnPeserta = [
+        'peserta_id',
+        'NIK',
+        'NAMA',
+        'TGL_LAHIR',
+        'ALAMAT_RUMAH',
+        'KOTA_RUMAH',
+        'TGL_PENSIUN',
+        'BAND_POSISI',
+        'KLAS_POSISI',
+        'vDIVISI',
+        'LOKASI_KERJA',
+        'PERSONALSUBAREA',
+        'YAKES_AREA',
+        'TGL_MENINGGAL',
+    ];
+    echo DetailView::widget([
+        'model' => $model->nIKKK,
+        'attributes' => $gridColumnPeserta    ]);
+    ?>
 </div>

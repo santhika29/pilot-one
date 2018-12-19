@@ -21,7 +21,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'NIKKES')->textInput(['maxlength' => true, 'placeholder' => 'NIKKES']) ?>
 
-    <?= $form->field($model, 'NIK_KK')->textInput(['maxlength' => true, 'placeholder' => 'NIK KK']) ?>
+    <?= $form->field($model, 'NIK_KK')->widget(\kartik\widgets\Select2::classname(), [
+        'data' => \yii\helpers\ArrayHelper::map(\app\models\Peserta::find()->orderBy('NIK')->asArray()->all(), 'NIK', 'peserta_id'),
+        'options' => ['placeholder' => 'Choose Peserta'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]); ?>
 
     <?= $form->field($model, 'NAMA')->textInput(['maxlength' => true, 'placeholder' => 'NAMA']) ?>
 
